@@ -30,13 +30,13 @@
         {
             this.Somabnt = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bntsoma = new System.Windows.Forms.Button();
             this.Subtraçãobnt = new System.Windows.Forms.Button();
             this.Multbnt = new System.Windows.Forms.Button();
             this.Divibnt = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.num1 = new System.Windows.Forms.TextBox();
+            this.result = new System.Windows.Forms.TextBox();
+            this.num2 = new System.Windows.Forms.TextBox();
             this.equal = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -60,16 +60,17 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Calculadora";
             // 
-            // button1
+            // bntsoma
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(117, 135);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(53, 40);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "+";
-            this.button1.UseVisualStyleBackColor = false;
+            this.bntsoma.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.bntsoma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bntsoma.Location = new System.Drawing.Point(117, 135);
+            this.bntsoma.Name = "bntsoma";
+            this.bntsoma.Size = new System.Drawing.Size(53, 40);
+            this.bntsoma.TabIndex = 1;
+            this.bntsoma.Text = "+";
+            this.bntsoma.UseVisualStyleBackColor = false;
+            this.bntsoma.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Subtraçãobnt
             // 
@@ -104,32 +105,32 @@
             this.Divibnt.Text = "/";
             this.Divibnt.UseVisualStyleBackColor = false;
             // 
-            // textBox1
+            // num1
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(81, 232);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(126, 29);
-            this.textBox1.TabIndex = 3;
+            this.num1.BackColor = System.Drawing.SystemColors.Control;
+            this.num1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num1.Location = new System.Drawing.Point(81, 232);
+            this.num1.Name = "num1";
+            this.num1.Size = new System.Drawing.Size(126, 29);
+            this.num1.TabIndex = 3;
             // 
-            // textBox2
+            // result
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(170, 317);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(170, 29);
-            this.textBox2.TabIndex = 3;
+            this.result.BackColor = System.Drawing.SystemColors.Control;
+            this.result.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.result.Location = new System.Drawing.Point(170, 317);
+            this.result.Name = "result";
+            this.result.Size = new System.Drawing.Size(170, 29);
+            this.result.TabIndex = 3;
             // 
-            // textBox3
+            // num2
             // 
-            this.textBox3.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(302, 232);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(126, 29);
-            this.textBox3.TabIndex = 3;
+            this.num2.BackColor = System.Drawing.SystemColors.Control;
+            this.num2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num2.Location = new System.Drawing.Point(302, 232);
+            this.num2.Name = "num2";
+            this.num2.Size = new System.Drawing.Size(126, 29);
+            this.num2.TabIndex = 3;
             // 
             // equal
             // 
@@ -148,14 +149,14 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(536, 468);
             this.Controls.Add(this.equal);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.result);
+            this.Controls.Add(this.num2);
+            this.Controls.Add(this.num1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Divibnt);
             this.Controls.Add(this.Multbnt);
             this.Controls.Add(this.Subtraçãobnt);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bntsoma);
             this.Controls.Add(this.Somabnt);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -168,13 +169,13 @@
 
         private System.Windows.Forms.Button Somabnt;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bntsoma;
         private System.Windows.Forms.Button Subtraçãobnt;
         private System.Windows.Forms.Button Multbnt;
         private System.Windows.Forms.Button Divibnt;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox num1;
+        private System.Windows.Forms.TextBox result;
+        private System.Windows.Forms.TextBox num2;
         private System.Windows.Forms.Label equal;
     }
 }
