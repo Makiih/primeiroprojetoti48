@@ -21,5 +21,10 @@ namespace primeiroprojetoti48
         {
             label1.Text = "Olá turma TI48";
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
