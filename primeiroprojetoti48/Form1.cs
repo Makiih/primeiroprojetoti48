@@ -12,51 +12,186 @@ namespace primeiroprojetoti48
 {
     public partial class Form1 : Form
     {
+        double resultado, valor1, valor2, porcentagem;
+        string operacao;
+
         public Form1()
         {
             InitializeComponent();
         }      
-
+        
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
+  
 
-        private void button1_Click_1(object sender, EventArgs e)
+
+        //Operações
+        private void Somabnt_Click(object sender, EventArgs e)
         {
-            double soma1 = double.Parse(num1.Text);
-            double soma2 = double.Parse(num2.Text);
-            double resultado = soma1 + soma2;
-            result.Text = resultado.ToString();
+            operacao = "Adicao";
+            valor1 = double.Parse(txtDisplay.Text);
+            txtResultado.Text = valor1.ToString() + " + ";
+            txtDisplay.Clear();
+            
         }
 
         private void Subtraçãobnt_Click(object sender, EventArgs e)
         {
-            double subtracao1 = double.Parse(num1.Text);
-            double subtracao2 = double.Parse(num2.Text);
-            double resultado = subtracao1 - subtracao2;
-            result.Text = resultado.ToString();
+            operacao = "Subtracao";
+            valor1 = double.Parse(txtDisplay.Text);
+            txtResultado.Text = valor1.ToString() + " - ";
+            txtDisplay.Clear();
         }
 
         private void Multbnt_Click(object sender, EventArgs e)
         {
-            double mult1 = double.Parse(num1.Text);
-            double mult2 = double.Parse(num2.Text);
-            double resultado = mult1 * mult2;
-            result.Text = resultado.ToString();
+            operacao = "Multiplicacao";
+            valor1 = double.Parse(txtDisplay.Text);
+            txtResultado.Text = valor1.ToString() + " x ";
+            txtDisplay.Clear();
         }
 
         private void Divibnt_Click(object sender, EventArgs e)
         {
-            double dividir1 = double.Parse(num1.Text);
-            double dividir2 = double.Parse(num2.Text);
-            double resultado = dividir1 / dividir2;
-            result.Text = resultado.ToString();
+            operacao = "Divisao";
+            valor1 = double.Parse(txtDisplay.Text);
+            txtResultado.Text = valor1.ToString() + " / ";
+            txtDisplay.Clear();
+        }
+        
+        private void btnPorcentagem_Click(object sender, EventArgs e)
+        {
+            double porcentagem = resultado / 100;
+            txtDisplay.Text = porcentagem.ToString() + " % ";
+        }
+       
+        private void btnApagarDigito_Click(object sender, EventArgs e)
+        {
+            if (txtDisplay.Text.Length > 0)
+            {
+                txtDisplay.Text = txtDisplay.Text.Remove(txtDisplay.Text.Length - 1, 1);
+            }
         }
 
-        private void result_TextChanged(object sender, EventArgs e)
+        private void btnMaisMenos_Click(object sender, EventArgs e)
         {
+            valor1 = double.Parse(txtDisplay.Text);
+            valor1 *= -1;
+            txtDisplay.Clear();
+            txtDisplay.Text = valor1.ToString();
 
+        }
+
+
+
+        //Layout - Números
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            valor1 = 0;
+            valor2 = 0;
+            resultado = 0;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += bnt5.Text;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += bnt4.Text;
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += bnt1.Text;
+        }
+
+        private void bnt7_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += bnt7.Text;
+        }
+
+        private void bnt2_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += bnt2.Text;
+        }
+
+        private void bnt3_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += bnt3.Text;
+        }
+
+        private void bnt9_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += bnt9.Text;
+        }
+
+        private void bnt8_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += bnt8.Text;
+        }
+
+        private void bnt6_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += bnt6.Text;
+        }
+
+        private void btnApagar_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Clear();
+            txtResultado.Clear();
+        }      
+
+        private void bnt0_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += bnt0.Text;
+        }
+       
+        private void bntvirgula_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text += bntvirgula.Text;
+        }
+
+               
+
+        //Igual
+        private void bntigual_Click(object sender, EventArgs e)
+        {
+            switch (operacao)
+            {
+                case "Adicao":
+                    valor2 = double.Parse(txtDisplay.Text);
+                    resultado = valor1 + valor2;
+                    txtResultado.Text = valor1.ToString() + " + " + valor2.ToString();
+                    txtDisplay.Text = resultado.ToString();
+                    break;
+
+                case "Subtracao":
+                    valor2 = double.Parse(txtDisplay.Text);
+                    resultado = valor1 - valor2;
+                    txtResultado.Text = valor1.ToString() + " - " + valor2.ToString();
+                    txtDisplay.Text = resultado.ToString();
+                    break;
+
+                case "Multiplicacao":
+                    valor2 = double.Parse(txtDisplay.Text);
+                    resultado = valor1 * valor2;
+                    txtResultado.Text = valor1.ToString() + " x " + valor2.ToString();
+                    txtDisplay.Text = resultado.ToString();
+                    break;
+
+                case "Divisao":
+                    valor2 = double.Parse(txtDisplay.Text);
+                    resultado = valor1 / valor2;
+                    txtResultado.Text = valor1.ToString() + " / " + valor2.ToString();
+                    txtDisplay.Text = resultado.ToString();
+                    break;
+
+               
+            }
         }
     }
 }
