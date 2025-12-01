@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,15 @@ namespace primeiroprojetoti48
         List<Contato> lista = new List<Contato>();
         int proximoId = 1;
 
+        Connection con = new Connection();
+
+        public Form2()
+        {
+            InitializeComponent();
+        }
+
+
+        //CLASSES
         public class Contato
         {
             public int ID { get; set; }
@@ -25,18 +35,35 @@ namespace primeiroprojetoti48
             public DateTime Dt { get; set; }
         }
 
-
-        public Form2()
+        public class Connection
         {
-            InitializeComponent();
+            string connectionString = @"Server= .\BDSENAC; Database=AgendaDB; User Id= senaclivre; Password= senaclivre;";
+
+            public SqlConnection Connect()
+            {
+                SqlConnection conn = new SqlConnection(connectionString);
+                conn.Open();
+                return conn;
+            }
         }
 
+
+
+        /*
+        =========================================
+                    VALIDAR EMAIL
+        =========================================*/
         bool EmailValido(string email)
         {
             return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         }
 
-        private void LimparCampos()
+
+        /*
+        =========================================
+                    LIMPAR CAMPOS
+        =========================================*/
+        void LimparCampos()
         {
             IDtxt.Clear();
             Nometxt.Clear();
@@ -47,16 +74,39 @@ namespace primeiroprojetoti48
             Nometxt.Focus();
         }
 
-        private void AtualizarGrid()
+        void AtualizarGrid()
         {
-            GridView.DataSource = null;
-            GridView.DataSource = lista;
+            using (SqlConnection conn = con.Connect())
+            {
+               
+                string sql = "SELECT * FROM Contatos ORDER BY ID";
+                SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
 
+
+                GridView.DataSource = dt;
+            }
         }
 
-        private void Form2_Load(object sender, EventArgs e)
+        void GridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                IDtxt.Text = GridView.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+                Nometxt.Text = GridView.Rows[e.RowIndex].Cells["Nome"].Value.ToString();
+                Teltxt.Text = GridView.Rows[e.RowIndex].Cells["Telefone"].Value.ToString();
+                Emailtxt.Text = GridView.Rows[e.RowIndex].Cells["Email"].Value.ToString();
+                DataRegistro.Value = Convert.ToDateTime(GridView.Rows[e.RowIndex].Cells["Dt"].Value);
+
+            }
+        }
+
+
+        void Form2_Load(object sender, EventArgs e)
         {
             Nometxt.Focus();
+            AtualizarGrid();
         }
 
 
@@ -64,7 +114,7 @@ namespace primeiroprojetoti48
         =========================================
                     BOTÃO ADICIONAR
         =========================================*/
-        private void Addbnt_Click(object sender, EventArgs e)
+        void Addbnt_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Nometxt.Text))
             {
@@ -79,27 +129,39 @@ namespace primeiroprojetoti48
 
             }
 
-
-            Contato c = new Contato();
+            try
             {
-                c.ID = proximoId++;
-                c.Nome = Nometxt.Text;
-                c.Telefone = Teltxt.Text;
-                c.Email = Emailtxt.Text;
-                c.Dt = DataRegistro.Value;
-            }
+                using (SqlConnection conn = con.Connect())
+                {
+                    string sql = @"INSERT INTO Contatos (Nome, Telefone, Email, Dt) VALUES (@Nome, @Telefone, @Email, @Dt)";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
 
-            lista.Add(c);
-            AtualizarGrid();
+                    cmd.Parameters.AddWithValue("@Nome", Nometxt.Text);
+                    cmd.Parameters.AddWithValue("@Telefone", Teltxt.Text);
+                    cmd.Parameters.AddWithValue("@Email", Emailtxt.Text);
+                    cmd.Parameters.AddWithValue("@Dt", DataRegistro.Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Registro inserido!");
+                AtualizarGrid();
+                LimparCampos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro" + ex.Message);
+            }
             LimparCampos();
         }
+
 
 
         /*
         =========================================
                     BOTÃO ALTERAR
         =========================================*/
-        private void Altbnt_Click(object sender, EventArgs e)
+        void Altbnt_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(IDtxt.Text, out int id))
             {
@@ -107,22 +169,23 @@ namespace primeiroprojetoti48
                 return;
             }
 
-            int ID = int.Parse(IDtxt.Text);
-            var contato = lista.FirstOrDefault(c => c.ID == id);
-            if (contato == null)
+            using (SqlConnection conn = con.Connect())
             {
-                MessageBox.Show("Registro não encontrado!");
-                return;
+                string sql = @"UPDATE Contatos SET Nome=@Nome, Telefone=@Telefone, Email=@Email, Dt=@Dt WHERE ID=@ID";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@ID", IDtxt.Text);
+                cmd.Parameters.AddWithValue("@Nome", Nometxt.Text);
+                cmd.Parameters.AddWithValue("@Telefone", Teltxt.Text);
+                cmd.Parameters.AddWithValue("@Email", Emailtxt.Text);
+                cmd.Parameters.AddWithValue("@Dt", DataRegistro.Value);
+
+                cmd.ExecuteNonQuery();
             }
 
-            contato.Nome = Nometxt.Text;
-            contato.Email = Emailtxt.Text;
-            contato.Telefone = Teltxt.Text;
-            contato.Dt = DataRegistro.Value;
-
-            AtualizarGrid();
+            MessageBox.Show("Registro alterado!");
+            AtualizarGrid(); ;
             LimparCampos();
-            MessageBox.Show("Contato alterado com sucesso!");
         }
 
 
@@ -130,7 +193,7 @@ namespace primeiroprojetoti48
         =========================================
                     BOTÃO EXCLUIR
         =========================================*/
-        private void Exbnt_Click(object sender, EventArgs e)
+        void Exbnt_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(IDtxt.Text, out int id))
             {
@@ -138,18 +201,18 @@ namespace primeiroprojetoti48
                 return;
             }
 
-            var contato = lista.FirstOrDefault(c => c.ID == id);
-            if (contato != null)
+            using (SqlConnection conn = con.Connect())
             {
-                lista.Remove(contato);
-                AtualizarGrid();
-                LimparCampos();
-                MessageBox.Show("Contato excluído com sucesso!");
+                string sql = "DELETE FROM Contatos WHERE ID=@ID";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@ID", IDtxt.Text);
+
+                cmd.ExecuteNonQuery();
             }
-            else
-            {
-                MessageBox.Show("Contato não encontrado!");
-            }
+
+            MessageBox.Show("Registro excluído!");
+            AtualizarGrid();
+            LimparCampos();
         }
 
 
@@ -158,7 +221,7 @@ namespace primeiroprojetoti48
         =========================================
                     BOTÃO CONSULTAR
         =========================================*/
-        private void Consultbnt_Click(object sender, EventArgs e)
+        void Consultbnt_Click(object sender, EventArgs e)
         {
             string nomeBusca = Nometxt.Text.Trim().ToLower();
             if (string.IsNullOrWhiteSpace(nomeBusca))
@@ -167,16 +230,23 @@ namespace primeiroprojetoti48
                 return;
             }
 
-            var resultados = lista.Where(c => c.Nome.ToLower().Contains(nomeBusca)).ToList();
+            using (SqlConnection conn = con.Connect())
+            {
+                string sql = "SELECT * FROM Contatos WHERE Nome LIKE @Nome";
 
-            if (resultados.Count > 0)
-            {
-                GridView.DataSource = null;
-                GridView.DataSource = resultados;
-            }
-            else
-            {
-                MessageBox.Show("Nenhum contato encontrado!");
+                SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+                da.SelectCommand.Parameters.AddWithValue("@Nome", "%" + Nometxt.Text + "%");
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("Nenhum contato encontrado");
+                    return;
+                }
+
+                GridView.DataSource = dt;
             }
         }
 
@@ -185,26 +255,10 @@ namespace primeiroprojetoti48
         =========================================
                    BOTÃO MOSTRAR DADOS
         =========================================*/
-        private void MDbnt_Click(object sender, EventArgs e)
+        void MDbnt_Click(object sender, EventArgs e)
         {
             AtualizarGrid();
         }
-
-        private void GridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                var contato = lista[e.RowIndex];
-
-                IDtxt.Text = contato.ID.ToString();
-                Nometxt.Text = contato.Nome;
-                Teltxt.Text = contato.Telefone;
-                Emailtxt.Text = contato.Email;
-                DataRegistro.Value = contato.Dt;
-
-            }
-        }
-
 
     }
 }
