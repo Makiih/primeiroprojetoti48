@@ -14,7 +14,7 @@ namespace primeiroprojetoti48
 {
     public partial class Form2 : Form
     {
-        List<Contato> lista = new List<Contato>();
+        List<Contatos> lista = new List<Contatos>();
         int proximoId = 1;
 
         Connection con = new Connection();
@@ -25,15 +25,7 @@ namespace primeiroprojetoti48
         }
 
 
-        //CLASSES
-        public class Contato
-        {
-            public int ID { get; set; }
-            public string Nome { get; set; }
-            public string Telefone { get; set; }
-            public string Email { get; set; }
-            public DateTime Dt { get; set; }
-        }
+        //CLASSES      
 
         public class Connection
         {
