@@ -20,19 +20,25 @@ namespace primeiroprojetoti48
         private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form2 Clientes = new Form2(); 
-            Clientes.ShowDialog();
+            Clientes.Show();
         }
 
         private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form3 Produtos = new Form3();
-            Produtos.ShowDialog();
+            Produtos.Show();
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        
+
+        private void vendasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form4 Vendas = new Form4();
+            Vendas.Show();
+
+        }
     }
 }

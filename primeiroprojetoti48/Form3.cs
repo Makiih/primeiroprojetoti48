@@ -14,8 +14,7 @@ namespace primeiroprojetoti48
 {
     public partial class Form3 : Form
     {
-        List<Produtos> lista = new List<Produtos>();
-        int proximoId = 1;
+        List<Produto> lista = new List<Produto>();
 
         Connection con = new Connection();
 
@@ -26,7 +25,7 @@ namespace primeiroprojetoti48
 
         public class Connection
         {
-            string connectionString = @"Server= .\BDSENAC; Database=AgendaDB; User Id= senaclivre; Password= senaclivre;";
+            string connectionString = @"Server= .\BDSENAC; Database=AgendaDB;  User ID=senaclivre; Password=senaclivre;";
 
             public SqlConnection Connect()
             {
@@ -88,6 +87,7 @@ namespace primeiroprojetoti48
                     string sql = @"INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Categoria) VALUES (@Nome, @Descricao, @Preco, @Estoque, @Categoria)";
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
+
                     cmd.Parameters.AddWithValue("@Nome", Nometxt.Text);
                     cmd.Parameters.AddWithValue("@Descricao", Descricaotxt.Text);
                     cmd.Parameters.AddWithValue("@Preco", Precotxt.Text);
@@ -144,8 +144,8 @@ namespace primeiroprojetoti48
                 cmd.Parameters.AddWithValue("@ID", IDtxt.Text);
                 cmd.Parameters.AddWithValue("@Nome", Nometxt.Text);
                 cmd.Parameters.AddWithValue("@Descricao", Descricaotxt.Text);
-                cmd.Parameters.AddWithValue("@Preco", Precotxt.Text);
-                cmd.Parameters.AddWithValue("@Estoque", Estoquetxt.Text);
+                cmd.Parameters.Add("@Preco", SqlDbType.Decimal).Value = preco;
+                cmd.Parameters.Add("@Estoque", SqlDbType.Int).Value = estoque;
                 cmd.Parameters.AddWithValue("@Categoria", Categoriatxt.Text);
 
                 cmd.ExecuteNonQuery();

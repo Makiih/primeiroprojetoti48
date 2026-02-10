@@ -15,7 +15,6 @@ namespace primeiroprojetoti48
     public partial class Form2 : Form
     {
         List<Contatos> lista = new List<Contatos>();
-        int proximoId = 1;
 
         Connection con = new Connection();
 
@@ -29,7 +28,7 @@ namespace primeiroprojetoti48
 
         public class Connection
         {
-            string connectionString = @"Server= .\BDSENAC; Database=AgendaDB; User Id= senaclivre; Password= senaclivre;";
+            string connectionString = @"Server=.\BDSENAC; Database=AgendaDB; User ID=senaclivre; Password=senaclivre;";
 
             public SqlConnection Connect()
             {
