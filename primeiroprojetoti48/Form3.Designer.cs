@@ -57,11 +57,11 @@
             // Produtolabel
             // 
             this.Produtolabel.AutoSize = true;
-            this.Produtolabel.Font = new System.Drawing.Font("Monotype Corsiva", 21.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Produtolabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Produtolabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.Produtolabel.Location = new System.Drawing.Point(207, 9);
             this.Produtolabel.Name = "Produtolabel";
-            this.Produtolabel.Size = new System.Drawing.Size(108, 36);
+            this.Produtolabel.Size = new System.Drawing.Size(131, 33);
             this.Produtolabel.TabIndex = 0;
             this.Produtolabel.Text = "Produtos";
             // 
@@ -79,13 +79,13 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label1.Location = new System.Drawing.Point(316, 25);
+            this.label1.Location = new System.Drawing.Point(344, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(573, 13);
+            this.label1.Size = new System.Drawing.Size(558, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "☆✿❤️✿☆---------------------------------------------------------------------------" +
     "--------------------------------------------------------------------------------" +
-    "-----------------\r\n";
+    "------------\r\n";
             // 
             // label2
             // 
